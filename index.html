@@ -3,313 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вирусный менеджер - Эволюция и Мутации</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Pet Arena - Тамагочи с боями</title>
     <style>
+        :root {
+            --primary: #7c3aed;
+            --secondary: #a78bfa;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --background: #0f172a;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         body {
-            background-color: #0f0f23;
-            color: #e6e6e6;
-            line-height: 1.6;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(233, 69, 96, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(78, 205, 196, 0.1) 0%, transparent 20%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
         }
         
         .container {
-            max-width: 1700px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
         
-        header {
+        .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 25px;
-            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
-            border-radius: 15px;
-            border-bottom: 5px solid #e94560;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 20px 0 40px;
         }
         
-        h1 {
+        .header h1 {
             font-size: 3rem;
-            color: #e94560;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(233, 69, 96, 0.5);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #b8b8b8;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .game-layout {
-            display: grid;
-            grid-template-columns: 350px 1fr 400px;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        
-        @media (max-width: 1400px) {
-            .game-layout {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        @media (max-width: 1000px) {
-            .game-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .left-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        
-        .center-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        
-        .panel {
-            background: linear-gradient(145deg, #16213e 0%, #1a1a2e 100%);
-            border-radius: 15px;
-            padding: 25px;
-            border: 2px solid #0f3460;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s;
-        }
-        
-        .panel:hover {
-            transform: translateY(-5px);
-        }
-        
-        .panel-title {
-            font-size: 1.5rem;
-            color: #e94560;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #0f3460;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .resources-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        
-        .resource {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #2a4a8a;
-            transition: transform 0.3s;
-        }
-        
-        .resource:hover {
-            transform: translateY(-3px);
-        }
-        
-        .resource-icon {
-            font-size: 2.5rem;
-            color: #e94560;
-            margin-bottom: 15px;
-        }
-        
-        .resource-name {
-            font-size: 1rem;
-            color: #b8b8b8;
-            margin-bottom: 8px;
-        }
-        
-        .resource-amount {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: #ffffff;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .clicker-area {
-            text-align: center;
-            padding: 30px 0;
-            background: linear-gradient(135deg, rgba(15, 52, 96, 0.5) 0%, rgba(26, 26, 46, 0.5) 100%);
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-        
-        .virus-cell {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 20px;
-            background: radial-gradient(circle, #e94560 0%, #b82e46 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            user-select: none;
-            border: 5px solid #ff6b8b;
-            box-shadow: 
-                0 0 30px rgba(233, 69, 96, 0.7),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 30px rgba(233, 69, 96, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.1); }
-            50% { box-shadow: 0 0 50px rgba(233, 69, 96, 0.9), inset 0 0 30px rgba(255, 255, 255, 0.2); }
-            100% { box-shadow: 0 0 30px rgba(233, 69, 96, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.1); }
-        }
-        
-        .virus-cell:active {
-            transform: scale(0.95);
-            animation: none;
-            box-shadow: 0 0 20px rgba(233, 69, 96, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .virus-icon {
-            font-size: 4.5rem;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        .click-info {
-            margin-top: 15px;
-            color: #b8b8b8;
-            font-size: 1.1rem;
-        }
-        
-        .power-info {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 2px solid #e94560;
-        }
-        
-        .power-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #e94560;
-            text-align: center;
+            background: linear-gradient(135deg, #f59e0b, #ef4444, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
-        .power-label {
-            text-align: center;
-            color: #b8b8b8;
+        .header p {
+            color: #94a3b8;
             font-size: 1.2rem;
         }
         
-        .tabs-container {
-            margin-bottom: 20px;
-        }
-        
-        .tabs {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #0f3460;
-            padding-bottom: 15px;
-        }
-        
-        .tab {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            color: #e6e6e6;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            font-weight: bold;
-            flex: 1;
-            text-align: center;
-        }
-        
-        .tab:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tab.active {
-            background: linear-gradient(135deg, #e94560 0%, #ff6b8b 100%);
-            color: white;
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-        }
-        
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .upgrades-grid {
+        .game-area {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 10px;
+            grid-template-columns: 250px 1fr 250px;
+            gap: 30px;
+            min-height: 600px;
         }
         
-        .upgrade {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-left: 5px solid #e94560;
-            position: relative;
+        .stats-panel {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .stats-panel h3 {
+            color: #a78bfa;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .stat-item {
+            margin-bottom: 20px;
+        }
+        
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
             overflow: hidden;
+            position: relative;
         }
         
-        .upgrade:before {
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+        
+        .progress-fill::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-        }
-        
-        .upgrade:hover:before {
-            animation: shine 1.5s;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 2s infinite;
         }
         
         @keyframes shine {
@@ -317,1731 +121,1455 @@
             100% { transform: translateX(100%); }
         }
         
-        .upgrade:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .upgrade.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            border-left-color: #666;
-        }
-        
-        .upgrade-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .upgrade-name {
-            font-size: 1.3rem;
-            color: #ffffff;
+        .stat-value {
+            position: absolute;
+            right: 10px;
+            top: -2px;
+            font-size: 0.8rem;
             font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         
-        .upgrade-cost {
-            font-size: 1.2rem;
-            color: #ffd166;
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-        
-        .upgrade-desc {
-            font-size: 1rem;
-            color: #b8b8b8;
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-        
-        .upgrade-effect {
-            font-size: 0.95rem;
-            color: #4ecdc4;
-            font-style: italic;
-            margin-bottom: 15px;
-            padding: 8px;
-            background: rgba(78, 205, 196, 0.1);
-            border-radius: 8px;
-        }
-        
-        .upgrade-progress {
-            height: 8px;
-            background-color: #1a1a2e;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 12px;
-        }
-        
-        .upgrade-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #e94560, #ff6b8b);
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.5s;
-        }
-        
-        /* Центральная панель - виды для заражения */
-        .species-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            max-height: 700px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-        
-        .species-item {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.4s;
-            border: 2px solid transparent;
-            position: relative;
-            min-height: 280px;
+        .pet-center {
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .species-item:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #e94560, #ff6b8b);
-        }
-        
-        .species-item:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .species-item.locked {
-            opacity: 0.4;
-            filter: grayscale(100%);
-        }
-        
-        .species-item.infected {
-            border-color: #e94560;
-            background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, #1b3a6e 100%);
-        }
-        
-        .species-item.extinct {
-            border-color: #4ecdc4;
-            background: linear-gradient(135deg, rgba(78, 205, 196, 0.2) 0%, #1b3a6e 100%);
-        }
-        
-        .species-icon {
-            font-size: 3.5rem;
-            color: #e94560;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .species-name {
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 8px;
-            font-size: 1.3rem;
-        }
-        
-        .species-type {
-            font-size: 0.9rem;
-            color: #ffd166;
-            margin-bottom: 10px;
-            background: rgba(255, 209, 102, 0.1);
-            padding: 3px 10px;
-            border-radius: 15px;
-            display: inline-block;
-        }
-        
-        .species-desc {
-            font-size: 0.9rem;
-            color: #b8b8b8;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        
-        .species-power {
-            font-size: 1rem;
-            color: #ffd166;
-            margin-bottom: 15px;
-        }
-        
-        .species-btn {
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #e94560 0%, #ff6b8b 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s;
-            margin-top: auto;
-        }
-        
-        .species-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-        }
-        
-        .species-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-        
-        .species-btn.infecting {
-            background: linear-gradient(135deg, #4ecdc4 0%, #2a9d8f 100%);
-        }
-        
-        .progress-container {
-            margin-top: 15px;
-        }
-        
-        .progress-label {
-            font-size: 0.9rem;
-            color: #b8b8b8;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background-color: #1a1a2e;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 10px;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
         
-        .infection-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #e94560, #ff6b8b);
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.5s;
+        .pet-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
         }
         
-        .cure-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #4ecdc4, #2a9d8f);
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.5s;
+        .pet-avatar {
+            font-size: 12rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
         
-        .species-status {
-            font-size: 0.9rem;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 10px;
-            margin-top: 10px;
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
         }
         
-        .status-infected {
-            color: #e94560;
-            background: rgba(233, 69, 96, 0.1);
+        .pet-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            border: 2px dashed rgba(124, 58, 237, 0.3);
+            border-radius: 50%;
+            z-index: 1;
         }
         
-        .status-extinct {
-            color: #4ecdc4;
-            background: rgba(78, 205, 196, 0.1);
+        .action-wheel {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
         }
         
-        /* Правая панель - мутации и эволюция */
-        .mutations-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .mutation {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
+        .action-btn {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
-        .mutation:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        .action-btn:hover {
+            transform: scale(1.1) translateZ(0);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
         
-        .mutation.unlocked {
-            border-color: #ffd166;
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, #1b3a6e 100%);
+        .action-btn:active {
+            transform: scale(0.95);
         }
         
-        .mutation.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .action-btn:nth-child(1) { top: 10%; left: 50%; transform: translateX(-50%); }
+        .action-btn:nth-child(2) { top: 25%; right: 15%; }
+        .action-btn:nth-child(3) { bottom: 25%; right: 15%; }
+        .action-btn:nth-child(4) { bottom: 10%; left: 50%; transform: translateX(-50%); }
+        .action-btn:nth-child(5) { bottom: 25%; left: 15%; }
+        .action-btn:nth-child(6) { top: 25%; left: 15%; }
+        .action-btn:nth-child(7) { top: 50%; left: 0; transform: translateY(-50%); }
+        .action-btn:nth-child(8) { top: 50%; right: 0; transform: translateY(-50%); }
+        
+        .btn-feed { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .btn-play { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        .btn-rest { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .btn-train { background: linear-gradient(135deg, #10b981, #34d399); }
+        .btn-mutate { background: linear-gradient(135deg, #ec4899, #f472b6); }
+        .btn-event { background: linear-gradient(135deg, #f59e0b, #f97316); }
+        .btn-battle { background: linear-gradient(135deg, #ef4444, #f87171); }
+        .btn-shop { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        
+        .action-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            opacity: 0.9;
         }
         
-        .mutation-icon {
-            font-size: 2rem;
-            color: #e94560;
-            margin-bottom: 10px;
+        .mutations-panel {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .mutation-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .mutation-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+        
+        .mutation-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .mutation-emoji {
+            font-size: 1.5rem;
         }
         
         .mutation-name {
             font-weight: bold;
-            color: #ffffff;
             font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-        
-        .mutation-desc {
-            font-size: 0.85rem;
-            color: #b8b8b8;
-            margin-bottom: 10px;
-        }
-        
-        .mutation-cost {
-            font-size: 0.9rem;
-            color: #ffd166;
-            font-weight: bold;
-        }
-        
-        .evolution-section {
-            margin-top: 20px;
-        }
-        
-        .evolution-display {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 3px solid #e94560;
-        }
-        
-        .evolution-level {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #e94560;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .evolution-name {
-            color: #ffffff;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-        
-        .evolution-bar {
-            height: 12px;
-            background-color: #1a1a2e;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-        
-        .evolution-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #e94560, #ff6b8b, #4ecdc4);
-            border-radius: 6px;
-            width: 0%;
-            transition: width 0.5s;
-        }
-        
-        .stats-section {
-            background: linear-gradient(135deg, #0f3460 0%, #1b3a6e 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        .stat {
-            text-align: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-        
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #e94560;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #b8b8b8;
-        }
-        
-        .cure-section {
-            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, #1b3a6e 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 2px solid #4ecdc4;
-        }
-        
-        .cure-title {
-            font-size: 1.3rem;
-            color: #4ecdc4;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .cure-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .cure-stat {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .cure-stat-name {
-            color: #b8b8b8;
-            font-size: 1rem;
-        }
-        
-        .cure-stat-value {
-            color: #4ecdc4;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        .cure-resistance-bar {
-            height: 10px;
-            background-color: #1a1a2e;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 5px;
-        }
-        
-        .cure-resistance-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4ecdc4, #2a9d8f);
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.5s;
-        }
-        
-        .notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 5px solid #e94560;
-            max-width: 350px;
-            transform: translateX(400px);
-            transition: transform 0.4s;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 25px;
-            color: #b8b8b8;
-            font-size: 1rem;
-            border-top: 3px solid #0f3460;
-            background: linear-gradient(135deg, rgba(22, 33, 62, 0.5) 0%, rgba(15, 52, 96, 0.5) 100%);
-            border-radius: 15px;
-        }
-        
-        .species-count {
-            font-size: 0.9rem;
-            color: #ffd166;
-            margin-top: 10px;
         }
         
         .mutation-effect {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 5px;
+        }
+        
+        .mutation-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 0.8rem;
-            color: #4ecdc4;
-            margin-top: 5px;
-            font-style: italic;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
         
-        .extinction-bonus {
-            color: #4ecdc4;
+        .stat-up { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .stat-down { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        .stat-neutral { background: rgba(156, 163, 175, 0.2); color: #9ca3af; }
+        
+        .message-center {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            max-width: 90%;
+            z-index: 1000;
+        }
+        
+        .message-bubble {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-left: 5px solid;
+            animation: slideUp 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-info { border-left-color: #3b82f6; }
+        .message-success { border-left-color: #10b981; }
+        .message-warning { border-left-color: #f59e0b; }
+        .message-danger { border-left-color: #ef4444; }
+        
+        .event-banner {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
             font-weight: bold;
-            margin-top: 5px;
+            font-size: 1.2rem;
+            z-index: 1001;
+            animation: pulse 2s infinite, slideDown 0.5s ease;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+            text-align: center;
+            max-width: 80%;
         }
         
-        .adaptation-bonus {
-            color: #ffd166;
-            font-size: 0.85rem;
-            margin-top: 5px;
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .modal-header {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #a78bfa;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .inventory-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .inventory-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .item-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .item-quantity {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .use-btn {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .use-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .battle-screen {
+            text-align: center;
+        }
+        
+        .battle-arena {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+        }
+        
+        .fighter {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .fighter-avatar {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .fighter-stats {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .vs {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f59e0b;
+            padding: 0 40px;
+        }
+        
+        .difficulty-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .difficulty-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .easy { border-color: #10b981; }
+        .medium { border-color: #f59e0b; }
+        .hard { border-color: #ef4444; }
+        
+        .time-display {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+        
+        @media (max-width: 1200px) {
+            .game-area {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .pet-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .action-wheel {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .action-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .pet-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .action-wheel {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .action-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
+            }
+            
+            .action-label {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1><i class="fas fa-virus"></i> ВИРУСНЫЙ МЕНЕДЖЕР</h1>
-            <p class="subtitle">Эволюционируйте, мутируйте, адаптируйтесь! Заражайте виды и доводите их до вымирания, чтобы получить уникальные бонусы!</p>
-        </header>
-        
-        <div class="game-layout">
-            <!-- Левая панель - ресурсы и улучшения -->
-            <div class="left-panel">
-                <div class="panel">
-                    <h2 class="panel-title"><i class="fas fa-chart-line"></i> Ресурсы и сила</h2>
-                    
-                    <div class="resources-grid">
-                        <div class="resource">
-                            <div class="resource-icon"><i class="fas fa-dna"></i></div>
-                            <div class="resource-name">Сила вируса</div>
-                            <div class="resource-amount" id="virus-power">100</div>
-                        </div>
-                        
-                        <div class="resource">
-                            <div class="resource-icon"><i class="fas fa-bolt"></i></div>
-                            <div class="resource-name">Энергия мутации</div>
-                            <div class="resource-amount" id="energy">50</div>
-                        </div>
-                        
-                        <div class="resource">
-                            <div class="resource-icon"><i class="fas fa-microscope"></i></div>
-                            <div class="resource-name">Зараженные клетки</div>
-                            <div class="resource-amount" id="cells">1</div>
-                        </div>
-                        
-                        <div class="resource">
-                            <div class="resource-icon"><i class="fas fa-star"></i></div>
-                            <div class="resource-name">Очки мутации</div>
-                            <div class="resource-amount" id="mutation-points">0</div>
-                        </div>
-                    </div>
-                    
-                    <div class="clicker-area">
-                        <div class="virus-cell" id="virus-cell">
-                            <div class="virus-icon"><i class="fas fa-virus"></i></div>
-                        </div>
-                        <p class="click-info">Кликните для заражения клеток</p>
-                        <p class="click-info">За клик: <span id="click-power">1</span> силы, <span id="click-energy">0.5</span> энергии</p>
-                    </div>
-                    
-                    <div class="power-info">
-                        <div class="power-value" id="total-power">100</div>
-                        <div class="power-label">Общая сила заражения</div>
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <div class="tabs-container">
-                        <div class="tabs">
-                            <div class="tab active" data-tab="upgrades">Улучшения</div>
-                            <div class="tab" data-tab="mutations">Мутации</div>
-                        </div>
-                        
-                        <div class="tab-content active" id="upgrades-tab">
-                            <div class="upgrades-grid">
-                                <div class="upgrade" id="upgrade1" onclick="buyUpgrade(1)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Острые шипы</div>
-                                        <div class="upgrade-cost">50 силы</div>
-                                    </div>
-                                    <div class="upgrade-desc">Улучшает проникновение вируса в клетки</div>
-                                    <div class="upgrade-effect">+2 силы за клик, +5% к скорости заражения</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="upgrade1-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="upgrade2" onclick="buyUpgrade(2)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Авторепликация</div>
-                                        <div class="upgrade-cost">100 силы</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус размножается самостоятельно</div>
-                                    <div class="upgrade-effect">Автозаражение 1 клетки/5сек, +10% к автоинфекции</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="upgrade2-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="upgrade3" onclick="buyUpgrade(3)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Энергетическая оболочка</div>
-                                        <div class="upgrade-cost">80 энергии</div>
-                                    </div>
-                                    <div class="upgrade-desc">Повышает энергоэффективность вируса</div>
-                                    <div class="upgrade-effect">+1 энергии за клик, +15% к выработке энергии</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="upgrade3-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="upgrade4" onclick="buyUpgrade(4)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Устойчивость к лечению</div>
-                                        <div class="upgrade-cost">150 силы</div>
-                                    </div>
-                                    <div class="upgrade-desc">Защищает вирус от методов лечения</div>
-                                    <div class="upgrade-effect">+10% сопротивления лечению, -5% к скорости лечения</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="upgrade4-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="upgrade5" onclick="buyUpgrade(5)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Быстрая эволюция</div>
-                                        <div class="upgrade-cost">200 силы</div>
-                                    </div>
-                                    <div class="upgrade-desc">Ускоряет процесс эволюции вируса</div>
-                                    <div class="upgrade-effect">+20% к скорости эволюции, +1 очко мутации при эволюции</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="upgrade5-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="upgrade6" onclick="buyUpgrade(6)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Массовое заражение</div>
-                                        <div class="upgrade-cost">300 силы</div>
-                                    </div>
-                                    <div class="upgrade-desc">Позволяет заражать несколько видов одновременно</div>
-                                    <div class="upgrade-effect">+2 слота для заражения, +25% к скорости заражения видов</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="upgrade6-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="tab-content" id="mutations-tab">
-                            <div class="upgrades-grid">
-                                <div class="upgrade" id="mutation1" onclick="buyMutation(1)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Адаптация к млекопитающим</div>
-                                        <div class="upgrade-cost">3 очка мутации</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус адаптируется для заражения млекопитающих</div>
-                                    <div class="upgrade-effect">+50% к скорости заражения млекопитающих, -30% к их лечению</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="mutation1-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="mutation2" onclick="buyMutation(2)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Адаптация к птицам</div>
-                                        <div class="upgrade-cost">4 очка мутации</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус учится заражать пернатых</div>
-                                    <div class="upgrade-effect">Открывает птиц для заражения, +40% к их скорости заражения</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="mutation2-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="mutation3" onclick="buyMutation(3)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Адаптация к водным видам</div>
-                                        <div class="upgrade-cost">5 очков мутации</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус адаптируется к водной среде</div>
-                                    <div class="upgrade-effect">Открывает водные виды, +35% к их скорости заражения</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="mutation3-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="mutation4" onclick="buyMutation(4)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Невидимость для иммунитета</div>
-                                        <div class="upgrade-cost">6 очков мутации</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус становится невидимым для иммунной системы</div>
-                                    <div class="upgrade-effect">-40% к скорости лечения всех видов, +15% к скрытности</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="mutation4-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="mutation5" onclick="buyMutation(5)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Сверхбыстрая мутация</div>
-                                        <div class="upgrade-cost">8 очков мутации</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус мутирует с невероятной скоростью</div>
-                                    <div class="upgrade-effect">+50% к скорости эволюции, +2 очка мутации при эволюции</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="mutation5-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="upgrade" id="mutation6" onclick="buyMutation(6)">
-                                    <div class="upgrade-header">
-                                        <div class="upgrade-name">Летальная форма</div>
-                                        <div class="upgrade-cost">10 очков мутации</div>
-                                    </div>
-                                    <div class="upgrade-desc">Вирус становится смертельно опасным</div>
-                                    <div class="upgrade-effect">+100% к урону видам, +50% к скорости вымирания</div>
-                                    <div class="upgrade-progress">
-                                        <div class="upgrade-progress-bar" id="mutation6-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Центральная панель - виды для заражения -->
-            <div class="center-panel">
-                <div class="panel">
-                    <h2 class="panel-title"><i class="fas fa-globe-americas"></i> Мир для заражения</h2>
-                    
-                    <div class="tabs-container">
-                        <div class="tabs">
-                            <div class="tab active" data-tab="all">Все виды</div>
-                            <div class="tab" data-tab="mammals">Млекопитающие</div>
-                            <div class="tab" data-tab="birds">Птицы</div>
-                            <div class="tab" data-tab="water">Водные</div>
-                            <div class="tab" data-tab="special">Особые</div>
-                        </div>
-                        
-                        <div class="tab-content active" id="all-tab">
-                            <div class="species-grid" id="all-species">
-                                <!-- Все виды будут добавлены через JavaScript -->
-                            </div>
-                        </div>
-                        
-                        <div class="tab-content" id="mammals-tab">
-                            <div class="species-grid" id="mammals-species">
-                                <!-- Млекопитающие будут добавлены через JavaScript -->
-                            </div>
-                        </div>
-                        
-                        <div class="tab-content" id="birds-tab">
-                            <div class="species-grid" id="birds-species">
-                                <!-- Птицы будут добавлены через JavaScript -->
-                            </div>
-                        </div>
-                        
-                        <div class="tab-content" id="water-tab">
-                            <div class="species-grid" id="water-species">
-                                <!-- Водные будут добавлены через JavaScript -->
-                            </div>
-                        </div>
-                        
-                        <div class="tab-content" id="special-tab">
-                            <div class="species-grid" id="special-species">
-                                <!-- Особые будут добавлены через JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="species-count" id="species-count">Заражено: 0/25 | Вымерло: 0</div>
-                </div>
-            </div>
-            
-            <!-- Правая панель - свойства и статистика -->
-            <div class="right-panel">
-                <div class="panel">
-                    <h2 class="panel-title"><i class="fas fa-dna"></i> Мутации и адаптации</h2>
-                    
-                    <div class="mutations-grid">
-                        <div class="mutation" id="adaptation1" onclick="buyAdaptation(1)">
-                            <div class="mutation-icon"><i class="fas fa-paw"></i></div>
-                            <div class="mutation-name">Адаптация к хищникам</div>
-                            <div class="mutation-desc">Повышает эффективность против хищников</div>
-                            <div class="mutation-cost">2 очка мутации</div>
-                            <div class="mutation-effect">+25% к заражению хищников</div>
-                        </div>
-                        
-                        <div class="mutation" id="adaptation2" onclick="buyAdaptation(2)">
-                            <div class="mutation-icon"><i class="fas fa-home"></i></div>
-                            <div class="mutation-name">Адаптация к домашним</div>
-                            <div class="mutation-desc">Эффективнее заражает домашних животных</div>
-                            <div class="mutation-cost">2 очка мутации</div>
-                            <div class="mutation-effect">+30% к заражению домашних видов</div>
-                        </div>
-                        
-                        <div class="mutation" id="adaptation3" onclick="buyAdaptation(3)">
-                            <div class="mutation-icon"><i class="fas fa-mountain"></i></div>
-                            <div class="mutation-name">Адаптация к диким</div>
-                            <div class="mutation-desc">Эффективнее заражает диких животных</div>
-                            <div class="mutation-cost">3 очка мутации</div>
-                            <div class="mutation-effect">+35% к заражению диких видов</div>
-                        </div>
-                        
-                        <div class="mutation" id="adaptation4" onclick="buyAdaptation(4)">
-                            <div class="mutation-icon"><i class="fas fa-users"></i></div>
-                            <div class="mutation-name">Адаптация к людям</div>
-                            <div class="mutation-desc">Специализация на заражении людей</div>
-                            <div class="mutation-cost">5 очков мутации</div>
-                            <div class="mutation-effect">+50% к заражению людей, -40% к их лечению</div>
-                        </div>
-                    </div>
-                    
-                    <div class="evolution-section">
-                        <div class="evolution-display">
-                            <div class="evolution-level">Эволюция: <span id="evolution-level">1</span></div>
-                            <div class="evolution-name" id="evolution-name">Примитивный вирус</div>
-                            <div>Прогресс до следующего уровня:</div>
-                            <div class="evolution-bar">
-                                <div class="evolution-bar-fill" id="evolution-progress-bar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <h2 class="panel-title"><i class="fas fa-chart-pie"></i> Статистика и лечение</h2>
-                    
-                    <div class="stats-section">
-                        <div class="stats-grid">
-                            <div class="stat">
-                                <div class="stat-value" id="total-infected">0</div>
-                                <div class="stat-label">Всего заражено</div>
-                            </div>
-                            
-                            <div class="stat">
-                                <div class="stat-value" id="infected-species">0</div>
-                                <div class="stat-label">Видов заражено</div>
-                            </div>
-                            
-                            <div class="stat">
-                                <div class="stat-value" id="extinct-species">0</div>
-                                <div class="stat-label">Видов вымерло</div>
-                            </div>
-                            
-                            <div class="stat">
-                                <div class="stat-value" id="auto-infect">0/сек</div>
-                                <div class="stat-label">Автозаражение</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cure-section">
-                        <div class="cure-title">
-                            <i class="fas fa-shield-virus"></i> Лечение и вымирание
-                        </div>
-                        
-                        <div class="cure-stats">
-                            <div class="cure-stat">
-                                <span class="cure-stat-name">Сопротивление лечению:</span>
-                                <span class="cure-stat-value" id="cure-resistance-value">10%</span>
-                            </div>
-                            <div class="cure-resistance-bar">
-                                <div class="cure-resistance-fill" id="cure-resistance-bar" style="width: 10%"></div>
-                            </div>
-                            
-                            <div class="cure-stat">
-                                <span class="cure-stat-name">Видов под лечением:</span>
-                                <span class="cure-stat-value" id="species-under-cure">0</span>
-                            </div>
-                            
-                            <div class="cure-stat">
-                                <span class="cure-stat-name">Скорость вымирания:</span>
-                                <span class="cure-stat-value" id="extinction-speed">0.1%/сек</span>
-                            </div>
-                            
-                            <div class="cure-stat">
-                                <span class="cure-stat-name">Бонус от вымирания:</span>
-                                <span class="cure-stat-value" id="extinction-bonus">+0%</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 15px; font-size: 0.9rem; color: #b8b8b8; line-height: 1.4;">
-                            <i class="fas fa-info-circle"></i> Виды начинают лечиться сразу после заражения. 
-                            Если лечение достигнет 100% - вид выздоровеет. Если заражение достигнет 100% - вид вымрет, давая бонусы!
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="header">
+            <h1>🐉 Pet Arena</h1>
+            <p>Круговая арена с питомцем в центре</p>
         </div>
         
-        <div class="footer">
-            <p><i class="fas fa-gamepad"></i> Вирусный менеджер: Эволюция и Мутации. Заражайте виды, эволюционируйте, адаптируйтесь и доводите виды до вымирания для получения уникальных бонусов!</p>
+        <div class="game-area">
+            <!-- Левая панель - статы -->
+            <div class="stats-panel">
+                <h3>📊 Статистика</h3>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>⏱️ Время</span>
+                        <span id="time-value">30:00</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="time-bar" style="width: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa);">
+                            <div class="stat-value" id="time-percent">100%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>💰 Монеты</span>
+                        <span id="coins-value">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="coins-bar" style="width: 100%; background: linear-gradient(90deg, #f59e0b, #fbbf24);">
+                            <div class="stat-value">100%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>⭐ Уровень</span>
+                        <span id="level-value">1</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="exp-bar" style="width: 0%; background: linear-gradient(90deg, #10b981, #34d399);">
+                            <div class="stat-value" id="exp-percent">0%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>❤️ Здоровье</span>
+                        <span id="health-value">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="health-bar" style="width: 100%; background: linear-gradient(90deg, #ef4444, #f87171);"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>🍖 Голод</span>
+                        <span id="hunger-value">50</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="hunger-bar" style="width: 50%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>⚡ Энергия</span>
+                        <span id="energy-value">80</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="energy-bar" style="width: 80%; background: linear-gradient(90deg, #3b82f6, #60a5fa);"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>😊 Настроение</span>
+                        <span id="mood-value">70</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="mood-bar" style="width: 70%; background: linear-gradient(90deg, #8b5cf6, #a78bfa);"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Центр - питомец и кнопки -->
+            <div class="pet-center">
+                <div class="pet-container">
+                    <div class="pet-ring"></div>
+                    <div class="pet-avatar" id="pet-avatar">🐲</div>
+                </div>
+                
+                <div class="action-wheel">
+                    <button class="action-btn btn-feed" onclick="feedPet()">
+                        🍎
+                        <div class="action-label">Покормить</div>
+                    </button>
+                    
+                    <button class="action-btn btn-play" onclick="playWithPet()">
+                        🎮
+                        <div class="action-label">Поиграть</div>
+                    </button>
+                    
+                    <button class="action-btn btn-rest" onclick="restPet()">
+                        💤
+                        <div class="action-label">Отдохнуть</div>
+                    </button>
+                    
+                    <button class="action-btn btn-train" onclick="trainPet()">
+                        🏋️
+                        <div class="action-label">Тренировать</div>
+                    </button>
+                    
+                    <button class="action-btn btn-mutate" onclick="mutatePet()">
+                        🧬
+                        <div class="action-label">Мутировать</div>
+                    </button>
+                    
+                    <button class="action-btn btn-event" onclick="triggerEvent()">
+                        🎲
+                        <div class="action-label">Событие</div>
+                    </button>
+                    
+                    <button class="action-btn btn-battle" onclick="showBattleModal()">
+                        ⚔️
+                        <div class="action-label">Бой</div>
+                    </button>
+                    
+                    <button class="action-btn btn-shop" onclick="showShopModal()">
+                        🏪
+                        <div class="action-label">Магазин</div>
+                    </button>
+                </div>
+                
+                <div class="time-display">
+                    <div id="game-timer">30:00</div>
+                    <div style="font-size: 1rem; color: #94a3b8; margin-top: 5px;">Прогресс: <span id="progress-text">0%</span></div>
+                </div>
+            </div>
+            
+            <!-- Правая панель - мутации -->
+            <div class="mutations-panel">
+                <h3>🧬 Мутации</h3>
+                <div id="mutations-list">
+                    <div style="color: #94a3b8; text-align: center; padding: 20px;">
+                        Мутации появятся во время игры
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
-    <div class="notification" id="notification">
-        <div id="notification-text">Тестовое уведомление</div>
+    <!-- Центр сообщений -->
+    <div class="message-center" id="message-center"></div>
+    
+    <!-- Баннер события -->
+    <div class="event-banner" id="event-banner" style="display: none;"></div>
+    
+    <!-- Модальные окна -->
+    <div class="modal" id="shop-modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('shop-modal')">×</button>
+            <h2 class="modal-header">🏪 Магазин</h2>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 1.5rem; color: #f59e0b;">💰 <span id="modal-coins">100</span> монет</div>
+            </div>
+            <div class="inventory-grid" id="shop-items">
+                <!-- Товары будут здесь -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="inventory-modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('inventory-modal')">×</button>
+            <h2 class="modal-header">🎒 Инвентарь</h2>
+            <div class="inventory-grid" id="inventory-items">
+                <!-- Предметы будут здесь -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="battle-modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('battle-modal')">×</button>
+            <h2 class="modal-header">⚔️ Арена битв</h2>
+            
+            <div class="battle-arena">
+                <div class="fighter">
+                    <div class="fighter-avatar" id="player-avatar">🐲</div>
+                    <div class="fighter-name" id="player-name" style="font-weight: bold; font-size: 1.2rem;">Дракоша</div>
+                    <div class="fighter-stats">
+                        <div>⚔️ Атака: <span id="player-attack">15</span></div>
+                        <div>🛡️ Защита: <span id="player-defense">8</span></div>
+                        <div>❤️ Здоровье: <span id="player-health">100</span></div>
+                    </div>
+                </div>
+                
+                <div class="vs">VS</div>
+                
+                <div class="fighter">
+                    <div class="fighter-avatar" id="enemy-avatar">🤖</div>
+                    <div class="fighter-name" id="enemy-name" style="font-weight: bold; font-size: 1.2rem;">Железный страж</div>
+                    <div class="fighter-stats">
+                        <div>⚔️ Атака: <span id="enemy-attack">12</span></div>
+                        <div>🛡️ Защита: <span id="enemy-defense">10</span></div>
+                        <div>❤️ Здоровье: <span id="enemy-health">80</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <button class="difficulty-btn easy" onclick="startBattle('easy')">🤖 Легкий</button>
+                <button class="difficulty-btn medium" onclick="startBattle('medium')">⚔️ Средний</button>
+                <button class="difficulty-btn hard" onclick="startBattle('hard')">👹 Сложный</button>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); border-radius: 15px; padding: 20px; max-height: 200px; overflow-y: auto;" id="battle-log">
+                <!-- Лог боя будет здесь -->
+            </div>
+        </div>
     </div>
 
     <script>
-        // Игровые переменные
-        let gameState = {
-            virusPower: 100,
-            energy: 50,
-            cells: 1,
-            mutationPoints: 0,
-            evolutionLevel: 1,
-            evolutionProgress: 0,
-            totalPower: 100,
-            clickPower: 1,
-            clickEnergy: 0.5,
-            autoInfectRate: 0,
-            totalInfected: 0,
-            infectedSpeciesCount: 0,
-            extinctSpeciesCount: 0,
-            cureResistance: 10,
-            extinctionSpeed: 0.1,
-            extinctionBonus: 0,
-            maxActiveInfections: 1,
+        // Игровые данные
+        let game = {
+            time: 30 * 60,
+            coins: 100,
+            level: 1,
+            exp: 0,
+            expNeeded: 100,
+            mutations: [],
             
-            // Улучшения
-            upgrades: {
-                1: { level: 0, maxLevel: 15, cost: 50, costMultiplier: 1.5, name: "Острые шипы", effect: { clickPower: 2, infectionSpeed: 5 }},
-                2: { level: 0, maxLevel: 10, cost: 100, costMultiplier: 1.8, name: "Авторепликация", effect: { autoInfect: 0.2, infectionSpeed: 10 }},
-                3: { level: 0, maxLevel: 12, cost: 80, costMultiplier: 1.6, name: "Энергетическая оболочка", effect: { clickEnergy: 0.5, energyProduction: 15 }},
-                4: { level: 0, maxLevel: 8, cost: 150, costMultiplier: 1.7, name: "Устойчивость к лечению", effect: { cureResistance: 10, cureSpeed: -5 }},
-                5: { level: 0, maxLevel: 5, cost: 200, costMultiplier: 2, name: "Быстрая эволюция", effect: { evolutionSpeed: 20, mutationPoints: 1 }},
-                6: { level: 0, maxLevel: 3, cost: 300, costMultiplier: 2.5, name: "Массовое заражение", effect: { maxInfections: 2, infectionSpeed: 25 }}
+            pet: {
+                name: "Дракоша",
+                avatar: "🐲",
+                health: 100,
+                maxHealth: 100,
+                hunger: 50,
+                energy: 80,
+                mood: 70,
+                attack: 15,
+                defense: 8,
+                speed: 12
             },
             
-            // Мутации
-            mutations: {
-                1: { purchased: false, cost: 3, name: "Адаптация к млекопитающим", effect: { mammalInfection: 50, mammalCure: -30 }},
-                2: { purchased: false, cost: 4, name: "Адаптация к птицам", effect: { unlockBirds: true, birdInfection: 40 }},
-                3: { purchased: false, cost: 5, name: "Адаптация к водным видам", effect: { unlockWater: true, waterInfection: 35 }},
-                4: { purchased: false, cost: 6, name: "Невидимость для иммунитета", effect: { cureSpeed: -40, stealth: 15 }},
-                5: { purchased: false, cost: 8, name: "Сверхбыстрая мутация", effect: { evolutionSpeed: 50, mutationPoints: 2 }},
-                6: { purchased: false, cost: 10, name: "Летальная форма", effect: { damage: 100, extinctionSpeed: 50 }}
-            },
-            
-            // Адаптации
-            adaptations: {
-                1: { purchased: false, cost: 2, name: "Адаптация к хищникам", effect: { predatorInfection: 25 }},
-                2: { purchased: false, cost: 2, name: "Адаптация к домашним", effect: { domesticInfection: 30 }},
-                3: { purchased: false, cost: 3, name: "Адаптация к диким", effect: { wildInfection: 35 }},
-                4: { purchased: false, cost: 5, name: "Адаптация к людям", effect: { humanInfection: 50, humanCure: -40 }}
-            },
-            
-            // Виды для заражения (25 видов!)
-            species: [
-                // Млекопитающие (10 видов)
-                { id: 1, name: "Мыши", type: "mammal", subtype: "rodent", icon: "fa-mouse", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 50, reward: { power: 30, energy: 15, mutation: 0 }, description: "Мелкие грызуны, легко заражаются", cureRate: 0.2, extinctionRate: 0.1, isPredator: false, isDomestic: false, isWild: true },
-                { id: 2, name: "Крысы", type: "mammal", subtype: "rodent", icon: "fa-mouse", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 80, reward: { power: 40, energy: 20, mutation: 0 }, description: "Крупные грызуны, живущие в городах", cureRate: 0.18, extinctionRate: 0.12, isPredator: false, isDomestic: false, isWild: false },
-                { id: 3, name: "Кошки", type: "mammal", subtype: "predator", icon: "fa-cat", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 120, reward: { power: 60, energy: 30, mutation: 0 }, description: "Домашние хищники, умеренная сложность", cureRate: 0.15, extinctionRate: 0.15, isPredator: true, isDomestic: true, isWild: false },
-                { id: 4, name: "Собаки", type: "mammal", subtype: "predator", icon: "fa-dog", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 150, reward: { power: 75, energy: 40, mutation: 0 }, description: "Верные друзья человека, социальные", cureRate: 0.14, extinctionRate: 0.18, isPredator: true, isDomestic: true, isWild: false },
-                { id: 5, name: "Коровы", type: "mammal", subtype: "herbivore", icon: "fa-cow", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 200, reward: { power: 100, energy: 50, mutation: 0 }, description: "Крупный рогатый скот, стадные", cureRate: 0.12, extinctionRate: 0.2, isPredator: false, isDomestic: true, isWild: false },
-                { id: 6, name: "Лошади", type: "mammal", subtype: "herbivore", icon: "fa-horse", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 250, reward: { power: 125, energy: 60, mutation: 0 }, description: "Благородные животные, выносливые", cureRate: 0.1, extinctionRate: 0.22, isPredator: false, isDomestic: true, isWild: false },
-                { id: 7, name: "Волки", type: "mammal", subtype: "predator", icon: "fa-paw", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 300, reward: { power: 150, energy: 75, mutation: 1 }, description: "Стайные хищники, умные и опасные", cureRate: 0.08, extinctionRate: 0.25, isPredator: true, isDomestic: false, isWild: true },
-                { id: 8, name: "Медведи", type: "mammal", subtype: "predator", icon: "fa-paw", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 400, reward: { power: 200, energy: 100, mutation: 1 }, description: "Крупные хищники, одиночки", cureRate: 0.06, extinctionRate: 0.3, isPredator: true, isDomestic: false, isWild: true },
-                { id: 9, name: "Обезьяны", type: "mammal", subtype: "primate", icon: "fa-paw", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 350, reward: { power: 175, energy: 85, mutation: 1 }, description: "Близкие родственники человека", cureRate: 0.07, extinctionRate: 0.28, isPredator: false, isDomestic: false, isWild: true },
-                { id: 10, name: "Слоны", type: "mammal", subtype: "herbivore", icon: "fa-otter", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 500, reward: { power: 250, energy: 125, mutation: 2 }, description: "Гиганты животного мира, умные", cureRate: 0.05, extinctionRate: 0.35, isPredator: false, isDomestic: false, isWild: true },
-                
-                // Птицы (5 видов) - требуют мутацию 2
-                { id: 11, name: "Воробьи", type: "bird", subtype: "small", icon: "fa-dove", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 100, reward: { power: 50, energy: 25, mutation: 0 }, description: "Мелкие птицы, обитают в городах", cureRate: 0.25, extinctionRate: 0.08, isPredator: false, isDomestic: false, isWild: false },
-                { id: 12, name: "Голуби", type: "bird", subtype: "medium", icon: "fa-dove", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 180, reward: { power: 90, energy: 45, mutation: 0 }, description: "Городские птицы, разносчики болезней", cureRate: 0.22, extinctionRate: 0.1, isPredator: false, isDomestic: false, isWild: false },
-                { id: 13, name: "Вороны", type: "bird", subtype: "predator", icon: "fa-crow", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 250, reward: { power: 125, energy: 60, mutation: 1 }, description: "Умные птицы, падальщики", cureRate: 0.18, extinctionRate: 0.15, isPredator: true, isDomestic: false, isWild: true },
-                { id: 14, name: "Орлы", type: "bird", subtype: "predator", icon: "fa-dove", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 400, reward: { power: 200, energy: 100, mutation: 1 }, description: "Короли неба, хищные птицы", cureRate: 0.12, extinctionRate: 0.2, isPredator: true, isDomestic: false, isWild: true },
-                { id: 15, name: "Пингвины", type: "bird", subtype: "special", icon: "fa-dove", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 300, reward: { power: 150, energy: 75, mutation: 1 }, description: "Полярные птицы, нелетающие", cureRate: 0.15, extinctionRate: 0.18, isPredator: false, isDomestic: false, isWild: true },
-                
-                // Водные виды (5 видов) - требуют мутацию 3
-                { id: 16, name: "Золотые рыбки", type: "water", subtype: "fish", icon: "fa-fish", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 80, reward: { power: 40, energy: 20, mutation: 0 }, description: "Аквариумные рыбки, легкая добыча", cureRate: 0.3, extinctionRate: 0.05, isPredator: false, isDomestic: true, isWild: false },
-                { id: 17, name: "Карпы", type: "water", subtype: "fish", icon: "fa-fish", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 150, reward: { power: 75, energy: 40, mutation: 0 }, description: "Пресноводные рыбы, обитают в прудах", cureRate: 0.25, extinctionRate: 0.1, isPredator: false, isDomestic: false, isWild: true },
-                { id: 18, name: "Акулы", type: "water", subtype: "predator", icon: "fa-fish", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 600, reward: { power: 300, energy: 150, mutation: 2 }, description: "Морские хищники, опасные существа", cureRate: 0.08, extinctionRate: 0.3, isPredator: true, isDomestic: false, isWild: true },
-                { id: 19, name: "Дельфины", type: "water", subtype: "mammal", icon: "fa-fish", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 500, reward: { power: 250, energy: 125, mutation: 2 }, description: "Умные морские млекопитающие", cureRate: 0.1, extinctionRate: 0.25, isPredator: true, isDomestic: false, isWild: true },
-                { id: 20, name: "Киты", type: "water", subtype: "mammal", icon: "fa-fish", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 800, reward: { power: 400, energy: 200, mutation: 3 }, description: "Гиганты океана, мирные существа", cureRate: 0.06, extinctionRate: 0.35, isPredator: false, isDomestic: false, isWild: true },
-                
-                // Особые виды (5 видов) - требуют высокий уровень
-                { id: 21, name: "Люди", type: "special", subtype: "human", icon: "fa-user-friends", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 1000, reward: { power: 500, energy: 250, mutation: 3 }, description: "Вершина эволюции, самый сложный вид", cureRate: 0.04, extinctionRate: 0.4, isPredator: true, isDomestic: false, isWild: false },
-                { id: 22, name: "Динозавры", type: "special", subtype: "extinct", icon: "fa-dragon", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 1500, reward: { power: 750, energy: 375, mutation: 5 }, description: "Древние гиганты, вымершие виды", cureRate: 0.03, extinctionRate: 0.5, isPredator: true, isDomestic: false, isWild: true },
-                { id: 23, name: "Мифические существа", type: "special", subtype: "mythical", icon: "fa-dragon", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 2000, reward: { power: 1000, energy: 500, mutation: 8 }, description: "Легендарные создания из мифов", cureRate: 0.02, extinctionRate: 0.6, isPredator: true, isDomestic: false, isWild: true },
-                { id: 24, name: "Инопланетяне", type: "special", subtype: "alien", icon: "fa-user-astronaut", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 3000, reward: { power: 1500, energy: 750, mutation: 10 }, description: "Внеземные формы жизни", cureRate: 0.015, extinctionRate: 0.7, isPredator: true, isDomestic: false, isWild: true },
-                { id: 25, name: "Боги", type: "special", subtype: "divine", icon: "fa-crown", infected: false, extinct: false, infectionProgress: 0, cureProgress: 0, requiredPower: 5000, reward: { power: 2500, energy: 1250, mutation: 15 }, description: "Верховные существа, конечная цель", cureRate: 0.01, extinctionRate: 0.8, isPredator: false, isDomestic: false, isWild: false }
+            inventory: [
+                { id: 1, name: "Морковь", emoji: "🥕", type: "food", quantity: 5, effect: { hunger: 30, mood: 5 } },
+                { id: 2, name: "Яблоко", emoji: "🍎", type: "food", quantity: 3, effect: { hunger: 50, mood: 10 } },
+                { id: 3, name: "Семена", emoji: "🌱", type: "seed", quantity: 3, effect: { plant: true } }
             ],
             
-            // Активное заражение
-            activeInfections: [],
+            shop: [
+                { id: 1, name: "Морковь", emoji: "🥕", price: 5, effect: "Голод +30%" },
+                { id: 2, name: "Яблоко", emoji: "🍎", price: 10, effect: "Голод +50%, Настроение +10%" },
+                { id: 3, name: "Энергетик", emoji: "🥤", price: 15, effect: "Энергия +40%" },
+                { id: 4, name: "Игрушка", emoji: "🧸", price: 20, effect: "Настроение +30%" },
+                { id: 5, name: "Семена", emoji: "🌱", price: 10, effect: "Для посадки" },
+                { id: 6, name: "Лечебное зелье", emoji: "🧪", price: 30, effect: "Здоровье +50%" },
+                { id: 7, name: "Супер-еда", emoji: "🍔", price: 40, effect: "Голод +100%, Настроение +20%" },
+                { id: 8, name: "Мутаген", emoji: "🧬", price: 50, effect: "Новая мутация" }
+            ],
             
-            // Статистика
-            stats: {
-                infectionSpeed: 0,
-                cureSpeed: 0,
-                extinctionBonus: 0,
-                totalExtinctionBonus: 0
-            }
+            mutationsList: [
+                { 
+                    id: 1, 
+                    name: "Огненная чешуя", 
+                    emoji: "🔥", 
+                    type: "positive",
+                    effect: "+25% к атаке, +15% к защите",
+                    stats: { attack: 0.25, defense: 0.15 }
+                },
+                { 
+                    id: 2, 
+                    name: "Ледяной взгляд", 
+                    emoji: "❄️", 
+                    type: "positive",
+                    effect: "+20% к атаке, +30% к скорости",
+                    stats: { attack: 0.20, speed: 0.30 }
+                },
+                { 
+                    id: 3, 
+                    name: "Колючая броня", 
+                    emoji: "🦔", 
+                    type: "positive",
+                    effect: "+40% к защите",
+                    stats: { defense: 0.40 }
+                },
+                { 
+                    id: 4, 
+                    name: "Быстрые лапы", 
+                    emoji: "⚡", 
+                    type: "positive",
+                    effect: "+50% к скорости",
+                    stats: { speed: 0.50 }
+                },
+                { 
+                    id: 5, 
+                    name: "Слабое здоровье", 
+                    emoji: "🤒", 
+                    type: "negative",
+                    effect: "-20% к макс. здоровью",
+                    stats: { maxHealth: -0.20 }
+                },
+                { 
+                    id: 6, 
+                    name: "Медленный метаболизм", 
+                    emoji: "🐌", 
+                    type: "negative",
+                    effect: "Голод растёт на 100% быстрее",
+                    stats: { hungerRate: 2.0 }
+                },
+                { 
+                    id: 7, 
+                    name: "Радужная кожа", 
+                    emoji: "🌈", 
+                    type: "neutral",
+                    effect: "Настроение меняется на 50% быстрее",
+                    stats: { moodRate: 1.5 }
+                },
+                { 
+                    id: 8, 
+                    name: "Электрическая аура", 
+                    emoji: "💫", 
+                    type: "neutral",
+                    effect: "Шанс 10% оглушить противника",
+                    stats: { stunChance: 0.10 }
+                }
+            ],
+            
+            events: [
+                {
+                    type: "good",
+                    message: "🎁 Вы нашли сундук с сокровищами!",
+                    effect: () => {
+                        game.coins += Math.floor(Math.random() * 30) + 20;
+                        addMessage(`Найдено ${game.coins} монет!`, "success");
+                    }
+                },
+                {
+                    type: "good",
+                    message: "🍀 Вам повезло! Питомец нашёл вкусную еду",
+                    effect: () => {
+                        game.inventory.push({
+                            id: Date.now(),
+                            name: "Вкусная еда",
+                            emoji: "🍖",
+                            type: "food",
+                            quantity: 1,
+                            effect: { hunger: 70, mood: 15 }
+                        });
+                        addMessage("Получена вкусная еда!", "success");
+                    }
+                },
+                {
+                    type: "good",
+                    message: "💫 Произошла спонтанная мутация!",
+                    effect: addRandomMutation
+                },
+                {
+                    type: "bad",
+                    message: "💢 Питомец простудился!",
+                    effect: () => {
+                        game.pet.health -= Math.floor(Math.random() * 20) + 10;
+                        if (game.pet.health < 0) game.pet.health = 1;
+                        addMessage(`Здоровье -${Math.floor(game.pet.health)}`, "danger");
+                    }
+                },
+                {
+                    type: "bad",
+                    message: "😴 Питомец слишком устал!",
+                    effect: () => {
+                        game.pet.energy -= Math.floor(Math.random() * 40) + 20;
+                        if (game.pet.energy < 0) game.pet.energy = 0;
+                        addMessage(`Энергия -${Math.floor(game.pet.energy)}`, "warning");
+                    }
+                },
+                {
+                    type: "neutral",
+                    message: "🌀 Произошла странная мутация...",
+                    effect: addRandomMutation
+                }
+            ]
         };
-
-        // DOM элементы
-        const virusPowerEl = document.getElementById('virus-power');
-        const energyEl = document.getElementById('energy');
-        const cellsEl = document.getElementById('cells');
-        const mutationPointsEl = document.getElementById('mutation-points');
-        const clickPowerEl = document.getElementById('click-power');
-        const clickEnergyEl = document.getElementById('click-energy');
-        const totalPowerEl = document.getElementById('total-power');
-        const virusCellEl = document.getElementById('virus-cell');
-        const notificationEl = document.getElementById('notification');
-        const notificationTextEl = document.getElementById('notification-text');
-        const totalInfectedEl = document.getElementById('total-infected');
-        const infectedSpeciesEl = document.getElementById('infected-species');
-        const extinctSpeciesEl = document.getElementById('extinct-species');
-        const autoInfectEl = document.getElementById('auto-infect');
-        const evolutionLevelEl = document.getElementById('evolution-level');
-        const evolutionNameEl = document.getElementById('evolution-name');
-        const evolutionProgressBar = document.getElementById('evolution-progress-bar');
-        const cureResistanceValueEl = document.getElementById('cure-resistance-value');
-        const cureResistanceBar = document.getElementById('cure-resistance-bar');
-        const speciesUnderCureEl = document.getElementById('species-under-cure');
-        const extinctionSpeedEl = document.getElementById('extinction-speed');
-        const extinctionBonusEl = document.getElementById('extinction-bonus');
-        const speciesCountEl = document.getElementById('species-count');
 
         // Инициализация игры
         function initGame() {
-            updateUI();
-            renderSpecies();
-            setupEventListeners();
+            updateDisplay();
+            startGameTimer();
+            updateShopItems();
+            updateInventoryItems();
+            updateMutationsList();
             
-            // Запуск игрового цикла
-            setInterval(gameLoop, 1000);
+            // Случайное имя и аватар
+            const names = ["Дракоша", "Огнегрив", "Искорка", "Змеюка", "Пушистик", "Грозовик"];
+            const avatars = ["🐲", "🐉", "🦎", "🦖", "🐊", "🦕"];
+            game.pet.name = names[Math.floor(Math.random() * names.length)];
+            game.pet.avatar = avatars[Math.floor(Math.random() * avatars.length)];
             
-            showNotification("Вирусный менеджер: Эволюция и Мутации запущены! Заражайте виды и доводите их до вымирания для получения бонусов!");
+            addMessage(`🎮 Добро пожаловать, ${game.pet.name}! У вас есть 30 минут.`, "info");
+            
+            // Первая мутация через 1 минуту
+            setTimeout(() => addRandomMutation(), 60000);
         }
 
-        // Игровой цикл
-        function gameLoop() {
-            // Автоматическое заражение клеток
-            if (gameState.autoInfectRate > 0) {
-                const cellsToInfect = gameState.autoInfectRate;
-                gameState.cells += cellsToInfect;
-                gameState.virusPower += cellsToInfect * gameState.clickPower;
-                gameState.energy += cellsToInfect * gameState.clickEnergy;
-                gameState.totalInfected += cellsToInfect;
-            }
-            
-            // Обработка активных заражений
-            processInfections();
-            
-            // Обработка лечения и вымирания
-            processCureAndExtinction();
-            
-            // Обновление прогресса эволюции
-            updateEvolution();
-            
-            updateUI();
-        }
-
-        // Обработка активных заражений видов
-        function processInfections() {
-            for (let i = gameState.activeInfections.length - 1; i >= 0; i--) {
-                const infection = gameState.activeInfections[i];
-                const species = gameState.species.find(s => s.id === infection.speciesId);
+        // Таймер игры
+        function startGameTimer() {
+            setInterval(() => {
+                game.time--;
                 
-                if (!species || species.infected || species.extinct) {
-                    gameState.activeInfections.splice(i, 1);
-                    continue;
+                // Обновление времени
+                const minutes = Math.floor(game.time / 60);
+                const seconds = game.time % 60;
+                const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                document.getElementById('game-timer').textContent = timeStr;
+                document.getElementById('time-value').textContent = timeStr;
+                
+                // Прогресс
+                const progress = 100 - (game.time / (30 * 60)) * 100;
+                document.getElementById('time-bar').style.width = progress + '%';
+                document.getElementById('time-percent').textContent = Math.round(progress) + '%';
+                document.getElementById('progress-text').textContent = Math.round(progress) + '%';
+                
+                // Пассивные изменения каждые 30 секунд
+                if (game.time % 30 === 0) {
+                    updatePassiveStats();
                 }
                 
-                // Расчет скорости заражения с учетом всех бонусов
-                let infectionSpeed = 0.5; // Базовая скорость
-                
-                // Бонусы от улучшений
-                infectionSpeed += (gameState.upgrades[1].level * 0.05);
-                infectionSpeed += (gameState.upgrades[2].level * 0.1);
-                infectionSpeed += (gameState.upgrades[6].level * 0.25);
-                
-                // Бонусы от мутаций и адаптаций
-                infectionSpeed = applySpeciesBonuses(species, infectionSpeed, 'infection');
-                
-                // Применение заражения
-                species.infectionProgress += infectionSpeed;
-                
-                // Если заражение достигло 100%
-                if (species.infectionProgress >= 100) {
-                    species.infected = true;
-                    species.infectionProgress = 100;
-                    gameState.infectedSpeciesCount++;
-                    gameState.activeInfections.splice(i, 1);
-                    
-                    showNotification(`Вид "${species.name}" полностью заражен! Начинается процесс вымирания...`);
+                // Конец игры
+                if (game.time <= 0) {
+                    endGame();
                 }
-            }
+            }, 1000);
         }
 
-        // Обработка лечения и вымирания
-        function processCureAndExtinction() {
-            let speciesUnderCure = 0;
-            let totalExtinctionSpeed = 0;
+        // Пассивные изменения
+        function updatePassiveStats() {
+            game.pet.hunger = Math.max(0, game.pet.hunger - 3);
+            game.pet.energy = Math.min(100, game.pet.energy + 2);
+            game.pet.mood = Math.max(0, game.pet.mood - 2);
             
-            gameState.species.forEach(species => {
-                if (species.infected && !species.extinct) {
-                    speciesUnderCure++;
-                    
-                    // Процесс лечения
-                    let cureSpeed = species.cureRate;
-                    
-                    // Учет сопротивления лечению
-                    cureSpeed *= (100 - gameState.cureResistance) / 100;
-                    
-                    // Бонусы от мутаций
-                    cureSpeed = applySpeciesBonuses(species, cureSpeed, 'cure');
-                    
-                    species.cureProgress += cureSpeed;
-                    
-                    // Процесс вымирания (только если заражен на 100%)
-                    if (species.infectionProgress >= 100) {
-                        let extinctionSpeed = species.extinctionRate;
-                        
-                        // Бонусы от мутаций
-                        extinctionSpeed = applySpeciesBonuses(species, extinctionSpeed, 'extinction');
-                        
-                        // Применяем бонус от вымирания
-                        extinctionSpeed *= (1 + gameState.extinctionBonus / 100);
-                        
-                        // Увеличиваем прогресс вымирания
-                        species.infectionProgress = Math.min(100, species.infectionProgress + extinctionSpeed);
-                        totalExtinctionSpeed += extinctionSpeed;
-                        
-                        // Если вымирание достигло 100%
-                        if (species.infectionProgress >= 100 && !species.extinct) {
-                            makeSpeciesExtinct(species.id);
-                        }
-                    }
-                    
-                    // Если лечение достигло 100%
-                    if (species.cureProgress >= 100 && !species.extinct) {
-                        cureSpecies(species.id);
-                    }
-                }
-            });
-            
-            gameState.stats.cureSpeed = speciesUnderCure;
-            gameState.stats.extinctionSpeed = totalExtinctionSpeed;
-        }
-
-        // Применение бонусов к виду
-        function applySpeciesBonuses(species, baseValue, type) {
-            let multiplier = 1;
-            
-            // Мутации
-            if (gameState.mutations[1].purchased && species.type === "mammal") {
-                if (type === 'infection') multiplier += 0.5;
-                if (type === 'cure') multiplier -= 0.3;
+            if (game.pet.hunger < 20) {
+                game.pet.health = Math.max(1, game.pet.health - 1);
             }
             
-            if (gameState.mutations[6].purchased) {
-                if (type === 'extinction') multiplier += 1.0;
+            if (Math.random() < 0.05) {
+                triggerRandomEvent();
             }
             
-            // Адаптации
-            if (gameState.adaptations[1].purchased && species.isPredator) {
-                if (type === 'infection') multiplier += 0.25;
-            }
-            
-            if (gameState.adaptations[2].purchased && species.isDomestic) {
-                if (type === 'infection') multiplier += 0.3;
-            }
-            
-            if (gameState.adaptations[3].purchased && species.isWild) {
-                if (type === 'infection') multiplier += 0.35;
-            }
-            
-            if (gameState.adaptations[4].purchased && species.subtype === "human") {
-                if (type === 'infection') multiplier += 0.5;
-                if (type === 'cure') multiplier -= 0.4;
-            }
-            
-            return baseValue * multiplier;
-        }
-
-        // Лечение вида
-        function cureSpecies(speciesId) {
-            const species = gameState.species.find(s => s.id === speciesId);
-            
-            if (!species || species.extinct) return;
-            
-            // Сброс прогресса
-            species.infected = false;
-            species.infectionProgress = 0;
-            species.cureProgress = 0;
-            gameState.infectedSpeciesCount--;
-            
-            showNotification(`Вид "${species.name}" вылечился от вируса! Все прогрессы сброшены.`);
-        }
-
-        // Вымирание вида
-        function makeSpeciesExtinct(speciesId) {
-            const species = gameState.species.find(s => s.id === speciesId);
-            
-            if (!species || species.extinct) return;
-            
-            // Отмечаем вид как вымерший
-            species.extinct = true;
-            species.infected = false;
-            gameState.infectedSpeciesCount--;
-            gameState.extinctSpeciesCount++;
-            
-            // Награда за вымирание
-            const powerReward = species.reward.power * 2;
-            const energyReward = species.reward.energy * 2;
-            const mutationReward = species.reward.mutation + 1;
-            
-            gameState.virusPower += powerReward;
-            gameState.energy += energyReward;
-            gameState.mutationPoints += mutationReward;
-            gameState.totalPower += powerReward;
-            
-            // Бонус за вымирание (увеличивается с каждым вымершим видом)
-            gameState.extinctionBonus += 5;
-            
-            showNotification(`Вид "${species.name}" ВЫМЕР! +${powerReward} силы, +${energyReward} энергии, +${mutationReward} очков мутации!`);
-        }
-
-        // Обновление эволюции
-        function updateEvolution() {
-            // Прогресс эволюции зависит от вымерших видов и общей силы
-            const baseProgress = gameState.extinctSpeciesCount * 10 + gameState.totalPower / 200;
-            
-            // Множители
-            let multiplier = 1;
-            if (gameState.upgrades[5].level > 0) {
-                multiplier += gameState.upgrades[5].level * 0.2;
-            }
-            if (gameState.mutations[5].purchased) {
-                multiplier += 0.5;
-            }
-            
-            gameState.evolutionProgress += baseProgress * multiplier / 100;
-            
-            // Если прогресс достиг 100%, повышаем уровень эволюции
-            if (gameState.evolutionProgress >= 100) {
-                gameState.evolutionLevel++;
-                gameState.evolutionProgress = 0;
-                
-                // Награда за эволюцию
-                let mutationReward = 1;
-                if (gameState.upgrades[5].level > 0) {
-                    mutationReward += gameState.upgrades[5].level;
-                }
-                if (gameState.mutations[5].purchased) {
-                    mutationReward += 2;
-                }
-                
-                gameState.mutationPoints += mutationReward;
-                
-                // Обновление имени вируса
-                const virusNames = [
-                    "Примитивный вирус", "Базовый вирус", "Опасный вирус", 
-                    "Угрожающий вирус", "Эпидемический вирус", "Пандемический вирус",
-                    "Апокалиптический вирус", "Легендарный вирус", "Мифический вирус", 
-                    "Божественный вирус", "Вселенская угроза", "Абсолютный патоген"
-                ];
-                
-                const nameIndex = Math.min(virusNames.length - 1, gameState.evolutionLevel - 1);
-                const virusName = virusNames[nameIndex];
-                
-                showNotification(`Вирус эволюционировал до уровня ${gameState.evolutionLevel}: ${virusName}! Получено ${mutationReward} очков мутации.`);
-            }
+            updateDisplay();
         }
 
         // Обновление интерфейса
-        function updateUI() {
-            // Обновление ресурсов
-            virusPowerEl.textContent = Math.floor(gameState.virusPower);
-            energyEl.textContent = Math.floor(gameState.energy);
-            cellsEl.textContent = Math.floor(gameState.cells);
-            mutationPointsEl.textContent = gameState.mutationPoints;
+        function updateDisplay() {
+            // Обновление значений
+            document.getElementById('coins-value').textContent = game.coins;
+            document.getElementById('level-value').textContent = game.level;
+            document.getElementById('health-value').textContent = Math.round(game.pet.health);
+            document.getElementById('hunger-value').textContent = Math.round(game.pet.hunger);
+            document.getElementById('energy-value').textContent = Math.round(game.pet.energy);
+            document.getElementById('mood-value').textContent = Math.round(game.pet.mood);
             
-            // Обновление мощности клика
-            clickPowerEl.textContent = gameState.clickPower;
-            clickEnergyEl.textContent = gameState.clickEnergy.toFixed(1);
+            // Обновление прогресс-баров
+            document.getElementById('coins-bar').style.width = Math.min(100, game.coins / 200 * 100) + '%';
+            document.getElementById('health-bar').style.width = (game.pet.health / game.pet.maxHealth * 100) + '%';
+            document.getElementById('hunger-bar').style.width = game.pet.hunger + '%';
+            document.getElementById('energy-bar').style.width = game.pet.energy + '%';
+            document.getElementById('mood-bar').style.width = game.pet.mood + '%';
             
-            // Обновление общей силы
-            totalPowerEl.textContent = Math.floor(gameState.totalPower);
+            // Опыт
+            const expPercent = (game.exp / game.expNeeded * 100);
+            document.getElementById('exp-bar').style.width = expPercent + '%';
+            document.getElementById('exp-percent').textContent = Math.round(expPercent) + '%';
             
-            // Обновление статистики
-            totalInfectedEl.textContent = Math.floor(gameState.totalInfected);
-            infectedSpeciesEl.textContent = gameState.infectedSpeciesCount;
-            extinctSpeciesEl.textContent = gameState.extinctSpeciesCount;
-            autoInfectEl.textContent = gameState.autoInfectRate.toFixed(1) + "/сек";
-            
-            // Обновление эволюции
-            evolutionLevelEl.textContent = gameState.evolutionLevel;
-            
-            // Обновление имени вируса
-            const virusNames = [
-                "Примитивный вирус", "Базовый вирус", "Опасный вирус", 
-                "Угрожающий вирус", "Эпидемический вирус", "Пандемический вирус",
-                "Апокалиптический вирус", "Легендарный вирус", "Мифический вирус", 
-                "Божественный вирус", "Вселенская угроза", "Абсолютный патоген"
-            ];
-            
-            const nameIndex = Math.min(virusNames.length - 1, gameState.evolutionLevel - 1);
-            evolutionNameEl.textContent = virusNames[nameIndex];
-            
-            // Обновление прогресса эволюции
-            evolutionProgressBar.style.width = gameState.evolutionProgress + "%";
-            
-            // Обновление статистики лечения
-            cureResistanceValueEl.textContent = Math.floor(gameState.cureResistance) + "%";
-            cureResistanceBar.style.width = gameState.cureResistance + "%";
-            
-            speciesUnderCureEl.textContent = gameState.stats.cureSpeed;
-            extinctionSpeedEl.textContent = gameState.stats.extinctionSpeed.toFixed(2) + "%/сек";
-            extinctionBonusEl.textContent = "+" + gameState.extinctionBonus + "%";
-            
-            // Обновление счетчика видов
-            speciesCountEl.textContent = `Заражено: ${gameState.infectedSpeciesCount}/25 | Вымерло: ${gameState.extinctSpeciesCount}`;
-            
-            // Обновление улучшений
-            updateUpgradesUI();
-            
-            // Обновление видов
-            renderSpecies();
+            // Аватар питомца
+            document.getElementById('pet-avatar').textContent = game.pet.avatar;
         }
 
-        // Обновление улучшений
-        function updateUpgradesUI() {
-            // Обновление улучшений
-            for (let i = 1; i <= 6; i++) {
-                const upgrade = gameState.upgrades[i];
-                const upgradeEl = document.getElementById(`upgrade${i}`);
-                const costEl = upgradeEl.querySelector('.upgrade-cost');
-                const progressBar = document.getElementById(`upgrade${i}-bar`);
-                
-                // Расчет текущей стоимости
-                const currentCost = Math.floor(upgrade.cost * Math.pow(upgrade.costMultiplier, upgrade.level));
-                
-                // Обновление стоимости
-                if (i === 3) {
-                    costEl.textContent = `${currentCost} энергии`;
-                } else {
-                    costEl.textContent = `${currentCost} силы`;
-                }
-                
-                // Обновление прогресса
-                progressBar.style.width = `${(upgrade.level / upgrade.maxLevel) * 100}%`;
-                
-                // Проверка возможности покупки
-                if ((i === 3 && gameState.energy >= currentCost) || (i !== 3 && gameState.virusPower >= currentCost)) {
-                    upgradeEl.classList.remove('disabled');
-                } else {
-                    upgradeEl.classList.add('disabled');
-                }
+        // Добавление сообщения
+        function addMessage(text, type = "info") {
+            const center = document.getElementById('message-center');
+            const message = document.createElement('div');
+            message.className = `message-bubble message-${type}`;
+            message.textContent = text;
+            message.style.animation = 'slideUp 0.3s ease';
+            
+            center.appendChild(message);
+            
+            // Удаление старых сообщений
+            const messages = center.querySelectorAll('.message-bubble');
+            if (messages.length > 3) {
+                messages[0].remove();
             }
             
-            // Обновление мутаций
-            for (let i = 1; i <= 6; i++) {
-                const mutation = gameState.mutations[i];
-                const mutationEl = document.getElementById(`mutation${i}`);
-                const progressBar = document.getElementById(`mutation${i}-bar`);
-                
-                if (mutation.purchased) {
-                    mutationEl.classList.add('unlocked');
-                    mutationEl.classList.remove('disabled');
-                    progressBar.style.width = "100%";
-                } else {
-                    // Проверка возможности покупки
-                    if (gameState.mutationPoints >= mutation.cost) {
-                        mutationEl.classList.remove('disabled');
-                    } else {
-                        mutationEl.classList.add('disabled');
-                    }
-                    progressBar.style.width = "0%";
+            // Автоудаление через 5 секунд
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.style.opacity = '0';
+                    message.style.transform = 'translateY(-20px)';
+                    setTimeout(() => message.remove(), 300);
                 }
-            }
-            
-            // Обновление адаптаций
-            for (let i = 1; i <= 4; i++) {
-                const adaptation = gameState.adaptations[i];
-                const adaptationEl = document.getElementById(`adaptation${i}`);
-                
-                if (adaptation.purchased) {
-                    adaptationEl.classList.add('unlocked');
-                    adaptationEl.classList.remove('disabled');
-                } else {
-                    // Проверка возможности покупки
-                    if (gameState.mutationPoints >= adaptation.cost) {
-                        adaptationEl.classList.remove('disabled');
-                    } else {
-                        adaptationEl.classList.add('disabled');
-                    }
-                }
-            }
+            }, 5000);
         }
 
-        // Покупка улучшения
-        function buyUpgrade(upgradeId) {
-            const upgrade = gameState.upgrades[upgradeId];
-            const currentCost = Math.floor(upgrade.cost * Math.pow(upgrade.costMultiplier, upgrade.level));
+        // Показать баннер события
+        function showEventBanner(text) {
+            const banner = document.getElementById('event-banner');
+            banner.textContent = text;
+            banner.style.display = 'block';
             
-            // Проверка максимального уровня
-            if (upgrade.level >= upgrade.maxLevel) {
-                showNotification(`Улучшение "${upgrade.name}" достигло максимального уровня!`);
+            setTimeout(() => {
+                banner.style.opacity = '0';
+                banner.style.transform = 'translateX(-50%) translateY(-50px)';
+                setTimeout(() => {
+                    banner.style.display = 'none';
+                    banner.style.opacity = '1';
+                    banner.style.transform = 'translateX(-50%) translateY(0)';
+                }, 500);
+            }, 3000);
+        }
+
+        // Действия с питомцем
+        function feedPet() {
+            const food = game.inventory.find(item => item.type === 'food');
+            if (!food || food.quantity <= 0) {
+                addMessage("❌ Нет еды в инвентаре!", "danger");
                 return;
             }
             
-            // Проверка ресурсов
-            if (upgradeId === 3) {
-                // Улучшение за энергию
-                if (gameState.energy < currentCost) {
-                    showNotification(`Недостаточно энергии! Нужно ${currentCost} энергии.`);
-                    return;
-                }
-                gameState.energy -= currentCost;
-            } else {
-                // Улучшение за силу
-                if (gameState.virusPower < currentCost) {
-                    showNotification(`Недостаточно силы вируса! Нужно ${currentCost} силы.`);
-                    return;
-                }
-                gameState.virusPower -= currentCost;
+            food.quantity--;
+            if (food.quantity <= 0) {
+                game.inventory = game.inventory.filter(i => i !== food);
             }
             
-            // Применение улучшения
-            upgrade.level++;
+            const effect = food.effect || { hunger: 30 };
+            game.pet.hunger = Math.min(100, game.pet.hunger + (effect.hunger || 0));
+            game.pet.mood = Math.min(100, game.pet.mood + (effect.mood || 0));
+            
+            addMessage(`🍎 Покормили ${food.name}! Голод +${effect.hunger || 30}%`, "success");
+            updateDisplay();
+            updateInventoryItems();
+        }
+
+        function playWithPet() {
+            if (game.pet.energy < 20) {
+                addMessage("❌ Питомец слишком устал для игр!", "danger");
+                return;
+            }
+            
+            game.pet.energy = Math.max(0, game.pet.energy - 15);
+            game.pet.mood = Math.min(100, game.pet.mood + 20);
+            
+            addMessage("🎮 Поиграли с питомцем! Настроение +20%", "success");
+            updateDisplay();
+        }
+
+        function restPet() {
+            game.pet.energy = Math.min(100, game.pet.energy + 40);
+            game.pet.hunger = Math.max(0, game.pet.hunger - 10);
+            
+            addMessage("💤 Питомец отдохнул! Энергия +40%", "success");
+            updateDisplay();
+        }
+
+        function trainPet() {
+            if (game.pet.energy < 30) {
+                addMessage("❌ Недостаточно энергии для тренировки!", "danger");
+                return;
+            }
+            
+            game.pet.energy = Math.max(0, game.pet.energy - 25);
+            
+            // Улучшение статов
+            if (Math.random() > 0.5) {
+                game.pet.attack += Math.random() * 2 + 1;
+                addMessage(`⚔️ Атака улучшена! Теперь: ${game.pet.attack.toFixed(1)}`, "success");
+            } else {
+                game.pet.defense += Math.random() * 1.5 + 0.5;
+                addMessage(`🛡️ Защита улучшена! Теперь: ${game.pet.defense.toFixed(1)}`, "success");
+            }
+            
+            game.exp += Math.floor(Math.random() * 15) + 10;
+            
+            // Проверка уровня
+            if (game.exp >= game.expNeeded) {
+                game.level++;
+                game.exp = 0;
+                game.expNeeded = game.level * 150;
+                game.pet.maxHealth += 25;
+                game.pet.health = game.pet.maxHealth;
+                
+                addMessage(`🎉 Уровень ${game.level}! Здоровье +25`, "success");
+                showEventBanner(`🎉 Достигнут уровень ${game.level}!`);
+            }
+            
+            updateDisplay();
+        }
+
+        // Мутации
+        function mutatePet() {
+            if (game.coins < 50) {
+                addMessage("❌ Нужно 50 монет для мутации!", "danger");
+                return;
+            }
+            
+            game.coins -= 50;
+            addRandomMutation();
+            addMessage("🧬 Применена мутация за 50 монет", "info");
+            updateDisplay();
+        }
+
+        function addRandomMutation() {
+            const available = game.mutationsList.filter(m => 
+                !game.mutations.some(gm => gm.id === m.id)
+            );
+            
+            if (available.length === 0) {
+                addMessage("❌ Все мутации уже применены!", "warning");
+                return;
+            }
+            
+            const mutation = available[Math.floor(Math.random() * available.length)];
+            game.mutations.push(mutation);
             
             // Применение эффектов
-            if (upgradeId === 1) {
-                gameState.clickPower += upgrade.effect.clickPower;
-                showNotification(`Улучшение "${upgrade.name}" куплено! +${upgrade.effect.clickPower} силы за клик.`);
-            } else if (upgradeId === 2) {
-                gameState.autoInfectRate += upgrade.effect.autoInfect;
-                showNotification(`Улучшение "${upgrade.name}" куплено! Автозаражение: ${gameState.autoInfectRate.toFixed(1)} клеток/сек.`);
-            } else if (upgradeId === 3) {
-                gameState.clickEnergy += upgrade.effect.clickEnergy;
-                showNotification(`Улучшение "${upgrade.name}" куплено! +${upgrade.effect.clickEnergy} энергии за клик.`);
-            } else if (upgradeId === 4) {
-                gameState.cureResistance += upgrade.effect.cureResistance;
-                showNotification(`Улучшение "${upgrade.name}" куплено! +${upgrade.effect.cureResistance}% сопротивления лечению.`);
-            } else if (upgradeId === 6) {
-                gameState.maxActiveInfections += upgrade.effect.maxInfections;
-                showNotification(`Улучшение "${upgrade.name}" куплено! Теперь можно заражать ${gameState.maxActiveInfections} видов одновременно.`);
-            } else {
-                showNotification(`Улучшение "${upgrade.name}" куплено!`);
-            }
+            if (mutation.stats.attack) game.pet.attack *= (1 + mutation.stats.attack);
+            if (mutation.stats.defense) game.pet.defense *= (1 + mutation.stats.defense);
+            if (mutation.stats.speed) game.pet.speed *= (1 + mutation.stats.speed);
+            if (mutation.stats.maxHealth) game.pet.maxHealth *= (1 + mutation.stats.maxHealth);
             
-            updateUI();
+            addMessage(`🧬 Новая мутация: ${mutation.emoji} ${mutation.name}`, "info");
+            showEventBanner(`🧬 ${mutation.name}: ${mutation.effect}`);
+            
+            updateMutationsList();
+            updateDisplay();
         }
 
-        // Покупка мутации
-        function buyMutation(mutationId) {
-            const mutation = gameState.mutations[mutationId];
+        function updateMutationsList() {
+            const list = document.getElementById('mutations-list');
+            list.innerHTML = '';
             
-            // Проверка, куплена ли уже мутация
-            if (mutation.purchased) {
-                showNotification(`Мутация "${mutation.name}" уже приобретена!`);
+            if (game.mutations.length === 0) {
+                list.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 20px;">Мутации появятся во время игры</div>';
                 return;
             }
             
-            // Проверка ресурсов
-            if (gameState.mutationPoints < mutation.cost) {
-                showNotification(`Недостаточно очков мутации! Нужно ${mutation.cost}.`);
-                return;
-            }
-            
-            // Списание ресурсов
-            gameState.mutationPoints -= mutation.cost;
-            
-            // Применение мутации
-            mutation.purchased = true;
-            
-            showNotification(`Мутация "${mutation.name}" приобретена!`);
-            
-            updateUI();
-        }
-
-        // Покупка адаптации
-        function buyAdaptation(adaptationId) {
-            const adaptation = gameState.adaptations[adaptationId];
-            
-            // Проверка, куплена ли уже адаптация
-            if (adaptation.purchased) {
-                showNotification(`Адаптация "${adaptation.name}" уже приобретена!`);
-                return;
-            }
-            
-            // Проверка ресурсов
-            if (gameState.mutationPoints < adaptation.cost) {
-                showNotification(`Недостаточно очков мутации! Нужно ${adaptation.cost}.`);
-                return;
-            }
-            
-            // Списание ресурсов
-            gameState.mutationPoints -= adaptation.cost;
-            
-            // Применение адаптации
-            adaptation.purchased = true;
-            
-            showNotification(`Адаптация "${adaptation.name}" приобретена!`);
-            
-            updateUI();
-        }
-
-        // Обработка клика по вирусу
-        function handleVirusClick() {
-            // Анимация клика
-            virusCellEl.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                virusCellEl.style.transform = 'scale(1)';
-            }, 100);
-            
-            // Начисление ресурсов
-            gameState.virusPower += gameState.clickPower;
-            gameState.energy += gameState.clickEnergy;
-            gameState.cells += 0.1;
-            gameState.totalInfected += 0.1;
-            gameState.totalPower += gameState.clickPower;
-            
-            // Шанс получить очко мутации
-            if (Math.random() < 0.01) {
-                gameState.mutationPoints++;
-                showNotification(`Случайная мутация! Получено 1 очко мутации.`);
-            }
-            
-            updateUI();
-        }
-
-        // Рендер видов
-        function renderSpecies() {
-            // Очистка контейнеров
-            const containers = ['all', 'mammals', 'birds', 'water', 'special'];
-            containers.forEach(container => {
-                const el = document.getElementById(`${container}-species`);
-                if (el) el.innerHTML = '';
-            });
-            
-            // Сортировка видов по категориям
-            gameState.species.forEach(species => {
-                const speciesEl = document.createElement('div');
+            game.mutations.forEach(mutation => {
+                const item = document.createElement('div');
+                item.className = 'mutation-item';
+                item.style.borderLeftColor = mutation.type === 'positive' ? '#10b981' : 
+                                          mutation.type === 'negative' ? '#ef4444' : '#94a3b8';
                 
-                // Определяем, заблокирован ли вид
-                let isLocked = false;
-                let lockReason = "";
-                
-                // Проверка мутаций для доступа
-                if (species.type === "bird" && !gameState.mutations[2].purchased) {
-                    isLocked = true;
-                    lockReason = "Требуется мутация 'Адаптация к птицам'";
-                }
-                
-                if (species.type === "water" && !gameState.mutations[3].purchased) {
-                    isLocked = true;
-                    lockReason = "Требуется мутация 'Адаптация к водным видам'";
-                }
-                
-                if (species.type === "special" && gameState.evolutionLevel < 5) {
-                    isLocked = true;
-                    lockReason = "Требуется 5 уровень эволюции";
-                }
-                
-                if (species.requiredPower > gameState.totalPower) {
-                    isLocked = true;
-                    lockReason = `Требуется ${species.requiredPower} силы вируса`;
-                }
-                
-                // Проверяем, заражается ли вид в данный момент
-                const isInfecting = gameState.activeInfections.some(inf => inf.speciesId === species.id);
-                
-                // Проверяем, можно ли начать заражение (лимит активных заражений)
-                const canInfect = !isLocked && !species.infected && !species.extinct && 
-                                 !isInfecting && gameState.activeInfections.length < gameState.maxActiveInfections;
-                
-                let statusClass = '';
-                let statusText = '';
-                if (species.extinct) {
-                    statusClass = 'extinct';
-                    statusText = 'ВЫМЕР';
-                } else if (species.infected) {
-                    statusClass = 'infected';
-                    statusText = 'ЗАРАЖЕН';
-                }
-                
-                // Бонусы адаптации
-                let adaptationBonus = '';
-                if (gameState.adaptations[1].purchased && species.isPredator) {
-                    adaptationBonus += '<div class="adaptation-bonus">+25% к хищникам</div>';
-                }
-                if (gameState.adaptations[2].purchased && species.isDomestic) {
-                    adaptationBonus += '<div class="adaptation-bonus">+30% к домашним</div>';
-                }
-                if (gameState.adaptations[3].purchased && species.isWild) {
-                    adaptationBonus += '<div class="adaptation-bonus">+35% к диким</div>';
-                }
-                if (gameState.adaptations[4].purchased && species.subtype === "human") {
-                    adaptationBonus += '<div class="adaptation-bonus">+50% к людям</div>';
-                }
-                
-                speciesEl.className = `species-item ${statusClass} ${isLocked ? 'locked' : ''}`;
-                speciesEl.innerHTML = `
-                    <div class="species-icon"><i class="fas ${species.icon}"></i></div>
-                    <div class="species-name">${species.name}</div>
-                    <div class="species-type">${species.type === 'mammal' ? 'Млекопитающее' : species.type === 'bird' ? 'Птица' : species.type === 'water' ? 'Водный вид' : 'Особый вид'}</div>
-                    <div class="species-desc">${species.description}</div>
-                    <div class="species-power">Требуется: ${species.requiredPower} силы</div>
-                    ${adaptationBonus}
-                    ${isLocked ? 
-                        `<div style="color: #ff6b8b; font-size: 0.8rem; margin-bottom: 10px;">${lockReason}</div>` : 
-                        ''
-                    }
-                    ${species.extinct ? 
-                        `<div class="species-status status-extinct">${statusText}</div>
-                         <div class="extinction-bonus">Бонус: +${species.reward.mutation + 1} очков мутации</div>` :
-                    species.infected ? 
-                        `<div class="species-status status-infected">${statusText}</div>` :
-                    isInfecting ?
-                        `<button class="species-btn infecting" disabled>Заражается... ${species.infectionProgress.toFixed(0)}%</button>` :
-                        `<button class="species-btn" onclick="startInfection(${species.id})" ${canInfect ? '' : 'disabled'}>${canInfect ? 'Заразить' : 'Недоступно'}</button>`
-                    }
-                    ${!species.extinct ? 
-                        `<div class="progress-container">
-                            <div class="progress-label">
-                                <span>${species.infected ? 'Вымирание' : 'Заражение'}</span>
-                                <span>${species.infectionProgress.toFixed(0)}%</span>
+                item.innerHTML = `
+                    <div class="mutation-header">
+                        <div class="mutation-emoji">${mutation.emoji}</div>
+                        <div class="mutation-name">${mutation.name}</div>
+                    </div>
+                    <div class="mutation-effect">${mutation.effect}</div>
+                    <div class="mutation-stats">
+                        ${Object.entries(mutation.stats || {}).map(([stat, value]) => `
+                            <div class="stat-badge ${value > 0 ? 'stat-up' : value < 0 ? 'stat-down' : 'stat-neutral'}">
+                                ${stat}: ${value > 0 ? '+' : ''}${(value * 100).toFixed(0)}%
                             </div>
-                            <div class="progress-bar">
-                                <div class="infection-progress-bar" style="width: ${species.infectionProgress}%"></div>
-                            </div>
-                            ${species.infected ? 
-                                `<div class="progress-label">
-                                    <span>Лечение</span>
-                                    <span>${species.cureProgress.toFixed(0)}%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="cure-progress-bar" style="width: ${species.cureProgress}%"></div>
-                                </div>` : 
-                                ''
-                            }
-                        </div>` : 
-                        ''
-                    }
+                        `).join('')}
+                    </div>
                 `;
                 
-                // Добавляем вид во все контейнеры, где он должен быть
-                // Все виды
-                const allContainer = document.getElementById('all-species');
-                if (allContainer) allContainer.appendChild(speciesEl.cloneNode(true));
-                
-                // По типам
-                if (species.type === "mammal") {
-                    const container = document.getElementById('mammals-species');
-                    if (container) container.appendChild(speciesEl.cloneNode(true));
-                }
-                if (species.type === "bird") {
-                    const container = document.getElementById('birds-species');
-                    if (container) container.appendChild(speciesEl.cloneNode(true));
-                }
-                if (species.type === "water") {
-                    const container = document.getElementById('water-species');
-                    if (container) container.appendChild(speciesEl.cloneNode(true));
-                }
-                if (species.type === "special") {
-                    const container = document.getElementById('special-species');
-                    if (container) container.appendChild(speciesEl.cloneNode(true));
-                }
+                list.appendChild(item);
             });
         }
 
-        // Начало заражения вида
-        function startInfection(speciesId) {
-            const species = gameState.species.find(s => s.id === speciesId);
-            
-            if (!species || species.infected || species.extinct) return;
-            
-            // Проверка лимита активных заражений
-            if (gameState.activeInfections.length >= gameState.maxActiveInfections) {
-                showNotification(`Достигнут лимит одновременного заражения! Максимум: ${gameState.maxActiveInfections}`);
+        // События
+        function triggerEvent() {
+            if (game.coins < 30) {
+                addMessage("❌ Нужно 30 монет для события!", "danger");
                 return;
             }
             
-            // Проверка требований
-            if (gameState.totalPower < species.requiredPower) {
-                showNotification(`Недостаточно силы вируса! Требуется ${species.requiredPower} силы.`);
-                return;
-            }
+            game.coins -= 30;
+            triggerRandomEvent();
+            updateDisplay();
+        }
+
+        function triggerRandomEvent() {
+            const event = game.events[Math.floor(Math.random() * game.events.length)];
+            event.effect();
+            addMessage(event.message, event.type === 'good' ? 'success' : event.type === 'bad' ? 'danger' : 'warning');
+            showEventBanner(event.message);
+        }
+
+        // Магазин
+        function showShopModal() {
+            document.getElementById('modal-coins').textContent = game.coins;
+            updateShopItems();
+            document.getElementById('shop-modal').style.display = 'flex';
+        }
+
+        function updateShopItems() {
+            const container = document.getElementById('shop-items');
+            container.innerHTML = '';
             
-            // Проверка специальных требований
-            if (species.type === "bird" && !gameState.mutations[2].purchased) {
-                showNotification(`Для заражения птиц требуется мутация "Адаптация к птицам"!`);
-                return;
-            }
-            
-            if (species.type === "water" && !gameState.mutations[3].purchased) {
-                showNotification(`Для заражения водных видов требуется мутация "Адаптация к водным видам"!`);
-                return;
-            }
-            
-            if (species.type === "special" && gameState.evolutionLevel < 5) {
-                showNotification(`Для заражения особых видов требуется 5 уровень эволюции!`);
-                return;
-            }
-            
-            // Добавление в активные заражения
-            gameState.activeInfections.push({
-                speciesId: speciesId,
-                startTime: Date.now()
+            game.shop.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'inventory-item';
+                div.innerHTML = `
+                    <div class="item-emoji">${item.emoji}</div>
+                    <div class="item-name">${item.name}</div>
+                    <div style="color: #94a3b8; font-size: 0.9rem; margin: 5px 0;">${item.effect}</div>
+                    <div style="color: #f59e0b; font-weight: bold; margin: 5px 0;">${item.price} монет</div>
+                    <button class="use-btn" onclick="buyItem(${item.id})" ${game.coins < item.price ? 'disabled' : ''}>
+                        Купить
+                    </button>
+                `;
+                container.appendChild(div);
             });
-            
-            showNotification(`Начато заражение вида "${species.name}"!`);
-            
-            updateUI();
         }
 
-        // Показать уведомление
-        function showNotification(text) {
-            notificationTextEl.textContent = text;
-            notificationEl.classList.add('show');
+        function buyItem(itemId) {
+            const item = game.shop.find(i => i.id === itemId);
+            if (!item) return;
             
-            setTimeout(() => {
-                notificationEl.classList.remove('show');
-            }, 4000);
-        }
-
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            virusCellEl.addEventListener('click', handleVirusClick);
+            if (game.coins < item.price) {
+                addMessage("❌ Недостаточно монет!", "danger");
+                return;
+            }
             
-            // Табы
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.getAttribute('data-tab');
-                    
-                    // Убрать активный класс со всех табов и контента
-                    tabs.forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    
-                    // Добавить активный класс текущему табу и контенту
-                    tab.classList.add('active');
-                    document.getElementById(`${tabId}-tab`).classList.add('active');
+            game.coins -= item.price;
+            
+            // Особые эффекты
+            if (item.name === "Мутаген") {
+                addRandomMutation();
+            } else if (item.name === "Семена") {
+                game.inventory.push({
+                    id: Date.now(),
+                    name: item.name,
+                    emoji: item.emoji,
+                    type: "seed",
+                    quantity: 1,
+                    effect: { plant: true }
                 });
+            } else {
+                // Добавление в инвентарь
+                const existing = game.inventory.find(i => i.name === item.name);
+                if (existing) {
+                    existing.quantity++;
+                } else {
+                    game.inventory.push({
+                        id: item.id,
+                        name: item.name,
+                        emoji: item.emoji,
+                        type: item.name.includes("еда") ? "food" : "item",
+                        quantity: 1,
+                        effect: { hunger: item.name.includes("еда") ? 100 : 0 }
+                    });
+                }
+            }
+            
+            addMessage(`🛒 Куплено: ${item.emoji} ${item.name}`, "success");
+            updateDisplay();
+            updateShopItems();
+            updateInventoryItems();
+        }
+
+        // Инвентарь
+        function showInventoryModal() {
+            updateInventoryItems();
+            document.getElementById('inventory-modal').style.display = 'flex';
+        }
+
+        function updateInventoryItems() {
+            const container = document.getElementById('inventory-items');
+            container.innerHTML = '';
+            
+            if (game.inventory.length === 0) {
+                container.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 40px;">Инвентарь пуст</div>';
+                return;
+            }
+            
+            game.inventory.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'inventory-item';
+                
+                let useBtn = '';
+                if (item.type === 'food') {
+                    useBtn = `<button class="use-btn" onclick="useItem(${index})">Использовать</button>`;
+                }
+                
+                div.innerHTML = `
+                    <div class="item-emoji">${item.emoji}</div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-quantity">Количество: ${item.quantity}</div>
+                    ${useBtn}
+                `;
+                container.appendChild(div);
             });
         }
 
-        // Запуск игры при загрузке страницы
-        window.addEventListener('DOMContentLoaded', initGame);
+        function useItem(index) {
+            const item = game.inventory[index];
+            if (!item || item.quantity <= 0) return;
+            
+            item.quantity--;
+            if (item.quantity <= 0) {
+                game.inventory.splice(index, 1);
+            }
+            
+            // Применение эффекта
+            if (item.effect?.hunger) {
+                game.pet.hunger = Math.min(100, game.pet.hunger + item.effect.hunger);
+                game.pet.mood = Math.min(100, game.pet.mood + (item.effect.mood || 0));
+                addMessage(`🍎 Использовано: ${item.name}`, "success");
+            } else if (item.effect?.plant) {
+                addMessage(`🌱 Посажены семена`, "success");
+            }
+            
+            updateDisplay();
+            updateInventoryItems();
+        }
+
+        // Бои
+        function showBattleModal() {
+            // Обновление данных игрока
+            document.getElementById('player-avatar').textContent = game.pet.avatar;
+            document.getElementById('player-name').textContent = game.pet.name;
+            document.getElementById('player-attack').textContent = game.pet.attack.toFixed(1);
+            document.getElementById('player-defense').textContent = game.pet.defense.toFixed(1);
+            document.getElementById('player-health').textContent = Math.round(game.pet.health);
+            
+            // Создание случайного противника
+            const difficulties = [
+                { name: "Слайм", avatar: "🟢", difficulty: "easy", health: 50, attack: 8, defense: 3 },
+                { name: "Гоблин", avatar: "👺", difficulty: "easy", health: 60, attack: 10, defense: 5 },
+                { name: "Железный страж", avatar: "🤖", difficulty: "medium", health: 80, attack: 12, defense: 10 },
+                { name: "Огненный дракон", avatar: "🐉", difficulty: "medium", health: 100, attack: 15, defense: 8 },
+                { name: "Древний голем", avatar: "🗿", difficulty: "hard", health: 120, attack: 18, defense: 15 },
+                { name: "Темный властелин", avatar: "👹", difficulty: "hard", health: 150, attack: 22, defense: 12 }
+            ];
+            
+            const enemy = difficulties[Math.floor(Math.random() * difficulties.length)];
+            
+            document.getElementById('enemy-avatar').textContent = enemy.avatar;
+            document.getElementById('enemy-name').textContent = enemy.name;
+            document.getElementById('enemy-attack').textContent = enemy.attack;
+            document.getElementById('enemy-defense').textContent = enemy.defense;
+            document.getElementById('enemy-health').textContent = enemy.health;
+            
+            document.getElementById('battle-log').innerHTML = '<div style="color: #94a3b8; text-align: center;">Выберите сложность боя</div>';
+            
+            document.getElementById('battle-modal').style.display = 'flex';
+        }
+
+        function startBattle(difficulty) {
+            const log = document.getElementById('battle-log');
+            log.innerHTML = '';
+            
+            const enemy = {
+                name: document.getElementById('enemy-name').textContent,
+                health: parseInt(document.getElementById('enemy-health').textContent),
+                attack: parseInt(document.getElementById('enemy-attack').textContent),
+                defense: parseInt(document.getElementById('enemy-defense').textContent)
+            };
+            
+            let playerHealth = game.pet.health;
+            let enemyHealth = enemy.health;
+            let round = 1;
+            
+            const addBattleLog = (text, type = "info") => {
+                const div = document.createElement('div');
+                div.style.margin = '5px 0';
+                div.style.color = type === 'damage' ? '#ef4444' : type === 'heal' ? '#10b981' : '#94a3b8';
+                div.textContent = text;
+                log.appendChild(div);
+                log.scrollTop = log.scrollHeight;
+            };
+            
+            addBattleLog(`⚔️ Бой начался! Противник: ${enemy.name}`, "info");
+            
+            const battleInterval = setInterval(() => {
+                // Ход игрока
+                const playerDamage = Math.max(1, game.pet.attack * (0.7 + Math.random() * 0.6) - enemy.defense * 0.3);
+                enemyHealth -= playerDamage;
+                addBattleLog(`Раунд ${round}: Вы нанесли ${playerDamage.toFixed(1)} урона!`, "damage");
+                
+                if (enemyHealth <= 0) {
+                    endBattle(true, difficulty);
+                    clearInterval(battleInterval);
+                    return;
+                }
+                
+                // Ход противника
+                const enemyDamage = Math.max(1, enemy.attack * (0.7 + Math.random() * 0.6) - game.pet.defense * 0.3);
+                playerHealth -= enemyDamage;
+                addBattleLog(`${enemy.name} нанёс ${enemyDamage.toFixed(1)} урона!`, "damage");
+                
+                if (playerHealth <= 0) {
+                    endBattle(false, difficulty);
+                    clearInterval(battleInterval);
+                    return;
+                }
+                
+                round++;
+                
+                if (round > 10) {
+                    endBattle(false, difficulty);
+                    clearInterval(battleInterval);
+                }
+            }, 1000);
+        }
+
+        function endBattle(win, difficulty) {
+            const log = document.getElementById('battle-log');
+            
+            if (win) {
+                // Награда
+                const rewards = {
+                    easy: { coins: 20, exp: 15 },
+                    medium: { coins: 40, exp: 25 },
+                    hard: { coins: 70, exp: 40 }
+                };
+                
+                const reward = rewards[difficulty];
+                game.coins += reward.coins;
+                game.exp += reward.exp;
+                
+                addMessage(`🎉 ПОБЕДА! Получено ${reward.coins} монет и ${reward.exp} опыта`, "success");
+                log.innerHTML += `<div style="color: #10b981; margin-top: 10px;">🎉 ПОБЕДА! +${reward.coins} монет, +${reward.exp} опыта</div>`;
+                
+                // Шанс на мутацию
+                if (Math.random() < 0.2) {
+                    addRandomMutation();
+                    log.innerHTML += `<div style="color: #a78bfa;">🧬 Получена новая мутация!</div>`;
+                }
+            } else {
+                game.pet.health = Math.max(1, game.pet.health * 0.7);
+                addMessage(`💀 Поражение... Питомец ранен`, "danger");
+                log.innerHTML += `<div style="color: #ef4444; margin-top: 10px;">💀 Поражение... Здоровье восстановлено до ${Math.round(game.pet.health)}</div>`;
+            }
+            
+            // Проверка уровня
+            if (game.exp >= game.expNeeded) {
+                game.level++;
+                game.exp = 0;
+                game.expNeeded = game.level * 150;
+                game.pet.maxHealth += 25;
+                game.pet.health = game.pet.maxHealth;
+                
+                addMessage(`🎉 Уровень ${game.level}! Здоровье +25`, "success");
+                log.innerHTML += `<div style="color: #f59e0b;">🎉 Уровень повышен до ${game.level}!</div>`;
+            }
+            
+            updateDisplay();
+        }
+
+        // Вспомогательные функции
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function endGame() {
+            const score = game.level * 100 + game.coins + game.mutations.length * 50;
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2 class="modal-header">🏁 Игра завершена!</h2>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <div style="font-size: 1.2rem; margin: 10px 0;">🏆 Уровень: ${game.level}</div>
+                        <div style="font-size: 1.2rem; margin: 10px 0;">💰 Монеты: ${game.coins}</div>
+                        <div style="font-size: 1.2rem; margin: 10px 0;">🧬 Мутации: ${game.mutations.length}</div>
+                        <div style="font-size: 1.5rem; color: #f59e0b; margin: 20px 0;">⭐ Общий счет: ${score}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="use-btn" onclick="location.reload()" style="width: auto; padding: 15px 30px; font-size: 1.1rem;">
+                            🎮 Новая игра
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Запуск игры
+        window.onload = initGame;
     </script>
 </body>
 </html>
